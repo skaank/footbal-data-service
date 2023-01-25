@@ -1,0 +1,43 @@
+spring:
+
+  application:
+    name: FOOTBALL-DATA-SERVICE
+
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/footballProject
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  h2:
+    console:
+      enabled: true
+
+
+
+
+external-services:
+  football:
+    base-url: https://apiv3.apifootball.com/
+    api-key: a54f62816c93efa8994275e8c58afbf8378da279e27115d0eb939188cce02c03
+
+server:
+  port: 8081
+
+#logging:
+#  level:
+#    root: DEBUG
+#  org:
+#    springframework:
+#      security: INFO
+
