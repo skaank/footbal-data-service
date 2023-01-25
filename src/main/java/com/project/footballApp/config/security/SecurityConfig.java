@@ -26,6 +26,16 @@ public class SecurityConfig {
     private JwtAuthFilter authFilter;
     private UserInfoRepository userInfoRepository;
 
+    private static final String[] PUBLIC_URLS = {
+            "/v3/api-docs",
+            "/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
+    };
+
     @Autowired
     public SecurityConfig(JwtAuthFilter authFilter, UserInfoRepository userInfoRepository) {
         this.authFilter = authFilter;
@@ -39,8 +49,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+
         return http.csrf().disable()
                 .authorizeHttpRequests().requestMatchers("/authenticate").permitAll().and()
+                .authorizeHttpRequests().requestMatchers(PUBLIC_URLS).permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/country/**").authenticated().and()
                 .authorizeHttpRequests().requestMatchers("/teams/**").authenticated().and()
                 .authorizeHttpRequests().requestMatchers("/competitions/**").authenticated().and()
