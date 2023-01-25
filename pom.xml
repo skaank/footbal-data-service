@@ -101,6 +101,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>football-data-service</finalName>
 	</build>
 
 </project>
