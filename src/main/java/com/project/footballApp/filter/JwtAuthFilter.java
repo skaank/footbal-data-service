@@ -19,12 +19,15 @@ import java.io.IOException;
 import static com.project.footballApp.constants.AppConstants.BEARER_WITH_SPACE_KEY;
 import static com.project.footballApp.constants.AppConstants.TOKEN_AUTHORIZATION_KEY;
 
+/**
+ * This class serves the purpose of a filter which intercepts the request
+ * take out token from headers and then validate it
+ */
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private JwtService jwtService;
     private UserInfoUserDetailsService userDetailsService;
-
 
     @Autowired
     public JwtAuthFilter(JwtService jwtService, UserInfoUserDetailsService userDetailsService) {

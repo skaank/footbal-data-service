@@ -44,6 +44,16 @@ public class StandingServiceImpl implements StandingService {
     }
 
 
+    /**
+     * this method tries to find standing of a team playing in a league in a country.
+     * It internally calls the 3rd party standing info api and then evaluates the correctness
+     * and accordingly replies back with data or exception
+     *
+     * @param countryName
+     * @param leagueName
+     * @param teamName
+     * @return Standing
+     */
     @Override
     public Standing getStandingByCountryLeagueTeamNames(String countryName, String leagueName, String teamName) {
 
@@ -59,6 +69,15 @@ public class StandingServiceImpl implements StandingService {
         throw new NoDataFoundException("Standing with country : " + countryName + " team : " + teamName + " league : " + leagueName + " not found!");
     }
 
+    /**
+     * this function calls the 3rd party api service to get the list of standings of team in a league
+     * and  after getting the response check for its correctness
+     * and then accordingly reply the caller with data or exception.
+     *
+     *
+     * @param leagueId
+     * @return list fo Standing
+     */
     @Override
     public List<Standing> getStandingByLeagueId(String leagueId) {
         String allStandings = footballApiClient.getStandingByLeagueId(FootballApiAction.GET_STANDINGS.getActionValue(),
@@ -80,7 +99,7 @@ public class StandingServiceImpl implements StandingService {
                     default -> throw new DefaultError(errorResponse.getMessage());
                 }
             } catch (JsonProcessingException jex) {
-                log.error("Exception occurred in processing response for getting all countries api : {}", jex);
+                log.error("Exception occurred in processing response for getting all standing api for league with id: {}",leagueId ,jex);
                 throw new DefaultError("Something went wrong");
             }
         }

@@ -19,6 +19,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.project.footballApp.constants.AppConstants.PUBLIC_URLS;
+
+/**
+ * Security configuration class for defining filter chain ,
+ * password encoder and other important security related beans
+ * It also manages which all paths should be authenticated and how.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -26,15 +33,6 @@ public class SecurityConfig {
     private JwtAuthFilter authFilter;
     private UserInfoRepository userInfoRepository;
 
-    private static final String[] PUBLIC_URLS = {
-            "/v3/api-docs",
-            "/v2/api-docs",
-            "/configuration/ui",
-            "/swagger-resources/**",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"
-    };
 
     @Autowired
     public SecurityConfig(JwtAuthFilter authFilter, UserInfoRepository userInfoRepository) {

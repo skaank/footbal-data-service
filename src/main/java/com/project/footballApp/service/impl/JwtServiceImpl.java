@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * This class is responsible for maintaining lifecycle of Jwt from creation to its expiration
+ */
 @Service
 public class JwtServiceImpl implements JwtService {
 

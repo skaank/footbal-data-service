@@ -23,6 +23,13 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * this method checks first whether user exist or not and then
+     * accordingly add user or returns an exception
+     * 
+     * @param request
+     * @return
+     */
     @Override
     public UserInfo addUser(AddUserRequest request) {
         Optional<UserInfo> optionalUserInfo = userInfoRepository.findByName(request.getName());

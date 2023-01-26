@@ -31,14 +31,13 @@ import java.util.Objects;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+/**
+ * This class is used for controller advice in case of exceptions happening
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
-
-    //-------------------------
-
 
 
     /**

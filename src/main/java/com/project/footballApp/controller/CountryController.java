@@ -20,10 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/country")
 public class CountryController {
-
-
     private CountryService service;
-
     @Autowired
     public CountryController(CountryService service) {
         this.service = service;

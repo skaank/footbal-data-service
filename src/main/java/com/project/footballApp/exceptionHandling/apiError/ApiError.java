@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is used for indicating what type of error took place
+ * during an api call and its related information
+ * ex timestamp, message etc
+ *
+ */
 @Data
 @JsonTypeIdResolver(LowerCaseClassNameResolver.class)
 public class ApiError {

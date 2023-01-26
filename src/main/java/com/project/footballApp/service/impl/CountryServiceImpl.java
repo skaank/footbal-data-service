@@ -35,6 +35,14 @@ public class CountryServiceImpl implements CountryService {
         this.footballApiClient = footballApiClient;
     }
 
+
+    /**
+     * this function calls the 3rd party api service to get the list of all countries
+     * and  after getting the response check for its correctness
+     * and then accordingly reply the caller with data or exception.
+     *
+     * @return list of CountryInfo
+     */
     @Override
     public List<CountryInfo> getAllCountries() {
 
@@ -54,12 +62,19 @@ public class CountryServiceImpl implements CountryService {
                     default -> throw new DefaultError(errorResponse.getMessage());
                 }
             } catch (JsonProcessingException jex) {
-                log.error("Exception occurred in processing response for getting all countries api : {}", jex);
+                log.error("Exception occurred in processing response for getting all countries api : ", jex);
                 throw new DefaultError("Something went wrong");
             }
         }
     }
 
+    /**
+     * this function calls the 3rd party api service to get the list of all countries
+     * and then filter out the country by country name and return respective countryId
+     *
+     * @param countryName
+     * @return countryId
+     */
     @Override
     public String getCountryIdByCountryName(String countryName) {
         Optional<CountryInfo> countryInfoOptional = getAllCountries().stream().filter(countryInfo -> countryInfo.getCountryName().equals(countryName)).findFirst();

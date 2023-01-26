@@ -36,6 +36,14 @@ public class CompetitionServiceImpl implements CompetitionService {
         this.footballApiClient = footballApiClient;
     }
 
+    /**
+     * this function calls the 3rd party api service to get the list of all leagues
+     * taking place in a country and  after getting the response
+     * check for its correctness and then accordingly reply the caller with data or exception.
+     *
+     * @param countryId
+     * @return lis of Competitions
+     */
     @Override
     public List<Competitions> getAllCompetitionsByCountryId(String countryId) {
         String countryLeagues = footballApiClient.getAllCompetitions(FootballApiAction.GET_LEAGUES.getActionValue(), countryId,
@@ -56,12 +64,21 @@ public class CompetitionServiceImpl implements CompetitionService {
                     default -> throw new DefaultError(errorResponse.getMessage());
                 }
             } catch (JsonProcessingException jex) {
-                log.error("Exception occurred in processing response for getting leagues for country with id : {} : {}", countryId, jex);
+                log.error("Exception occurred in processing response for getting leagues for country with id : {} : ", countryId, jex);
                 throw new DefaultError("Something went wrong");
             }
         }
     }
 
+
+    /**
+     * this function calls the 3rd party api service to get the list of all leagues
+     * and then filter out the league by league name and country id.
+     *
+     * @param leagueName
+     * @param countryId
+     * @return leagueId
+     */
     @Override
     public String getLeagueIdByLeagueNameAndCountryId(String leagueName, String countryId) {
         Optional<Competitions> competitionsOptional = getAllCompetitionsByCountryId(countryId).stream().filter(competitions -> competitions.getLeagueName().equals(leagueName)).findFirst();
