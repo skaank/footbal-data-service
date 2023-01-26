@@ -32,4 +32,4 @@ external-services:
     api-key: ${FOOTBALL_API_KEY}
 
 server:
-  port: 8081
+  port: 8080

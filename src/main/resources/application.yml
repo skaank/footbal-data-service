@@ -31,7 +31,7 @@ external-services:
     api-key: a54f62816c93efa8994275e8c58afbf8378da279e27115d0eb939188cce02c03
 
 server:
-  port: 8081
+  port: 8080
 
 
 #logging:
