@@ -3,6 +3,7 @@ package com.project.footballApp.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.footballApp.singletion.ObjectMapperSingleton;
 import com.project.footballApp.client.FootballApiClient;
 import com.project.footballApp.config.ExternalFootballServiceConfiguration;
 import com.project.footballApp.enums.FootballApiAction;
@@ -31,7 +32,8 @@ public class CompetitionServiceImpl implements CompetitionService {
 
 
     @Autowired
-    public CompetitionServiceImpl(ExternalFootballServiceConfiguration footballServiceConfig, FootballApiClient footballApiClient) {
+    public CompetitionServiceImpl(ExternalFootballServiceConfiguration footballServiceConfig,
+            FootballApiClient footballApiClient) {
         this.footballServiceConfig = footballServiceConfig;
         this.footballApiClient = footballApiClient;
     }
@@ -49,10 +51,9 @@ public class CompetitionServiceImpl implements CompetitionService {
         String countryLeagues = footballApiClient.getAllCompetitions(FootballApiAction.GET_LEAGUES.getActionValue(), countryId,
                 footballServiceConfig.getApiKey());
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = ObjectMapperSingleton.getInstance();
         try {
-            return mapper.readValue(String.valueOf(countryLeagues), new TypeReference<List<Competitions>>() {
-            });
+            return (List<Competitions>) mapper.readValue(String.valueOf(countryLeagues), new TypeReference<List<Competitions>>() {});
         } catch (Exception ex) {
             try {
                 FootballApiErrorResponse errorResponse = mapper.readValue(String.valueOf(countryLeagues), new TypeReference<FootballApiErrorResponse>() {

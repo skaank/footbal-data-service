@@ -29,16 +29,7 @@ spring:
 external-services:
   football:
     base-url: https://apiv3.apifootball.com/
-    api-key: a54f62816c93efa8994275e8c58afbf8378da279e27115d0eb939188cce02c03
+    api-key: ${FOOTBALL_API_KEY}
 
 server:
   port: 8081
-
-
-#logging:
-#  level:
-#    root: DEBUG
-#  org:
-#    springframework:
-#      security: INFO
-

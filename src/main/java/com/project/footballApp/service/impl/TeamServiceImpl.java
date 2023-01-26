@@ -3,6 +3,7 @@ package com.project.footballApp.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.footballApp.singletion.ObjectMapperSingleton;
 import com.project.footballApp.client.FootballApiClient;
 import com.project.footballApp.config.ExternalFootballServiceConfiguration;
 import com.project.footballApp.enums.FootballApiAction;
@@ -16,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.project.footballApp.constants.AppConstants.FOOTBALL_SERVICE_AUTHENTICATION_FAILED_MSG;
@@ -41,7 +41,6 @@ public class TeamServiceImpl implements TeamService {
      * and  after getting the response check for its correctness
      * and then accordingly reply the caller with data or exception.
      *
-     *
      * @param leagueId
      * @return list of Teams
      */
@@ -50,9 +49,10 @@ public class TeamServiceImpl implements TeamService {
         String allTeams = footballApiClient.getAllTeamsByLeagueId(FootballApiAction.GET_TEAMS.getActionValue(),leagueId,
                 footballServiceConfig.getApiKey());
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = ObjectMapperSingleton.getInstance();
         try {
-            return mapper.readValue(String.valueOf(allTeams), (new ArrayList<Team>()).getClass());
+            return (List<Team>) mapper.readValue(String.valueOf(allTeams), new TypeReference<List<Team>>() {
+            });
         } catch (Exception ex) {
             try {
                 FootballApiErrorResponse errorResponse = mapper.readValue(String.valueOf(allTeams), new TypeReference<FootballApiErrorResponse>() {

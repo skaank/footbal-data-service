@@ -1,9 +1,15 @@
 package com.project.footballApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Player extends Person{
 
     @JsonProperty("player_key")
@@ -43,6 +49,9 @@ public class Player extends Person{
     private String substitutes_on_bench;
     @JsonProperty("player_assists")
     private String assists;
+
+//    @JsonProperty("player_birthdate")
+//    private String birthDate;
     @JsonProperty("player_is_captain")
     private String is_captain;
 

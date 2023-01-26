@@ -42,7 +42,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DataResponse.class))})
     })
-    @PostMapping()
+    @PostMapping("/register")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<DataResponse> addUser(@RequestBody @Valid AddUserRequest request) {
         UserInfo createdUser = userService.addUser(request);

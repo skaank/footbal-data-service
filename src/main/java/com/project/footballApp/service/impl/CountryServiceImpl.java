@@ -3,6 +3,7 @@ package com.project.footballApp.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.footballApp.singletion.ObjectMapperSingleton;
 import com.project.footballApp.client.FootballApiClient;
 import com.project.footballApp.config.ExternalFootballServiceConfiguration;
 import com.project.footballApp.enums.FootballApiAction;
@@ -49,9 +50,9 @@ public class CountryServiceImpl implements CountryService {
         String allCountries = footballApiClient.getAllCountries(FootballApiAction.GET_ALL_COUNTRIES.getActionValue(),
                 footballServiceConfig.getApiKey());
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = ObjectMapperSingleton.getInstance();
         try {
-            return mapper.readValue(String.valueOf(allCountries), new TypeReference<List<CountryInfo>>() {});
+            return (List<CountryInfo>) mapper.readValue(String.valueOf(allCountries), new TypeReference<List<CountryInfo>>() {});
         } catch (Exception ex) {
             try {
                 FootballApiErrorResponse errorResponse = mapper.readValue(String.valueOf(allCountries), new TypeReference<FootballApiErrorResponse>() {

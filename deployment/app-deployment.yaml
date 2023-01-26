@@ -43,6 +43,12 @@ spec:
                   name : mysql-secrets
                   key :  password
 
+            - name: FOOTBALL_API_KEY # Setting Database password from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: football-service-api-key
+
 ---
 
 apiVersion: v1 # Kubernetes API version

@@ -3,6 +3,7 @@ package com.project.footballApp.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.footballApp.singletion.ObjectMapperSingleton;
 import com.project.footballApp.client.FootballApiClient;
 import com.project.footballApp.config.ExternalFootballServiceConfiguration;
 import com.project.footballApp.enums.FootballApiAction;
@@ -74,7 +75,6 @@ public class StandingServiceImpl implements StandingService {
      * and  after getting the response check for its correctness
      * and then accordingly reply the caller with data or exception.
      *
-     *
      * @param leagueId
      * @return list fo Standing
      */
@@ -83,9 +83,9 @@ public class StandingServiceImpl implements StandingService {
         String allStandings = footballApiClient.getStandingByLeagueId(FootballApiAction.GET_STANDINGS.getActionValue(),
                 footballServiceConfig.getApiKey(), leagueId);
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = ObjectMapperSingleton.getInstance();
         try {
-            return mapper.readValue(String.valueOf(allStandings), new TypeReference<List<Standing>>() {
+            return (List<Standing>) mapper.readValue(String.valueOf(allStandings), new TypeReference<List<Standing>>() {
             });
         } catch (Exception ex) {
             try {

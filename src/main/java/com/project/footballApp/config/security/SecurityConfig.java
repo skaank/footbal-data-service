@@ -52,6 +52,7 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .authorizeHttpRequests().requestMatchers("/authenticate").permitAll().and()
                 .authorizeHttpRequests().requestMatchers(PUBLIC_URLS).permitAll().and()
+                .authorizeHttpRequests().requestMatchers("/users/**").authenticated().and()
                 .authorizeHttpRequests().requestMatchers("/country/**").authenticated().and()
                 .authorizeHttpRequests().requestMatchers("/teams/**").authenticated().and()
                 .authorizeHttpRequests().requestMatchers("/competitions/**").authenticated().and()
