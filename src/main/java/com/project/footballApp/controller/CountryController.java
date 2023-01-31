@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,9 +35,12 @@ public class CountryController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DataResponse.class))}),
-            @ApiResponse(responseCode = "404", description = "Internal Server Error",
+            @ApiResponse(responseCode = "403", description = "Forbidden (only open for users with view country access)",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = DataResponse.class))})
+                            schema = @Schema(implementation = DataResponse.class))}),
+            @ApiResponse(responseCode = "503", description = "Football api service not available",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseBody.class))})
     })
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ROLE_VIEW_COUNTRY')")

@@ -9,14 +9,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/standings")
@@ -29,9 +27,9 @@ public class StandingController {
         this.service = service;
     }
 
-    @Operation(summary = "Get Standing of a team playing in a league in a country")
+    @Operation(summary = "Get Standing of a team playing in a league in a country",security = {@SecurityRequirement(name = "bearer-key")})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Info of performance pof a team",
+            @ApiResponse(responseCode = "200", description = "Info of performance of a team",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DataResponse.class))}),
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
@@ -40,7 +38,10 @@ public class StandingController {
             @ApiResponse(responseCode = "400", description = "Malformed request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DataResponse.class))}),
-            @ApiResponse(responseCode = "404", description = "No team cound be found for respective league and country",
+            @ApiResponse(responseCode = "503", description = "Football api service not available",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseBody.class))}),
+            @ApiResponse(responseCode = "404", description = "No team could be found for respective league and country",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DataResponse.class))}),
             @ApiResponse(responseCode = "403", description = "Forbidden (only open for users with view standings access)",

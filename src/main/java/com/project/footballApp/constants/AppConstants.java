@@ -15,12 +15,14 @@ public class AppConstants {
 
     public static final String[] PUBLIC_URLS = {
             "/v3/api-docs",
+            "/v3/api-docs/**",
             "/v2/api-docs",
             "/configuration/ui",
             "/swagger-resources/**",
             "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/context-path/swagger-ui.html"
     };
 
 }

@@ -41,7 +41,10 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DataResponse.class))}),
-            @ApiResponse(responseCode = "404", description = "User not found in system whom token is asked",
+            @ApiResponse(responseCode = "403", description = "Forbidden",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DataResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Bad request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DataResponse.class))})
     })
